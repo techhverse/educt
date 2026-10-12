@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learning Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700;900&family=Pacifico&family=Bebas+Neue&display=swap">
+<style>
+:root{--blue:#1456c9;--blue2:#0b2e73;--bg:#f4f8ff;--card:#fff;--text:#12213f;--yellow:#ffc928;--red:#d62828;--fs:16px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1630;--card:#13244a;--text:#e8efff}}
+:root[data-theme="dark"]{--bg:#0b1630;--card:#13244a;--text:#e8efff}
+:root[data-theme="light"]{--bg:#f4f8ff;--card:#fff;--text:#12213f}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;font-size:var(--fs);background:var(--bg);color:var(--text);line-height:1.6}
+body.hc{--blue:#003a9e}
+h1,h2{font-family:'Playfair Display',Georgia,serif;color:var(--blue);margin:.2em 0}
+.logo{font-family:Pacifico,cursive;color:#fff;font-size:1.5rem;text-decoration:none}
+.tag{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;font-size:1.3em}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--blue);display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;flex-wrap:wrap;gap:.5rem}
+nav{display:flex;gap:.2rem;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;padding:.35rem .7rem;border-radius:20px;font-size:.9rem}
+nav a:hover,nav a.on{background:var(--yellow);color:#000}
+#menu{display:none;background:var(--yellow);border:0;border-radius:8px;padding:.4rem .8rem;font-size:1.1rem}
+@media(max-width:820px){#menu{display:block}nav{display:none;width:100%;flex-direction:column}nav.open{display:flex}}
+main{max-width:1100px;margin:auto;padding:1rem}
+.page{display:none}.page.on{display:block;animation:f .3s}
+@keyframes f{from{opacity:0;transform:translateY(8px)}}
+.slider{position:relative;overflow:hidden;border-radius:18px;min-height:260px}
+.slide{display:none;min-height:260px;padding:2rem;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue2));flex-direction:column;justify-content:center}
+.slide.on{display:flex}
+.slide h1{color:#fff;font-size:clamp(1.6rem,5vw,2.8rem)}
+.hl{background:var(--yellow);color:#000;padding:0 .4em;border-radius:5px;font-weight:600}
+.dots{position:absolute;bottom:10px;left:0;right:0;text-align:center}
+.dots b{display:inline-block;width:10px;height:10px;border-radius:50%;background:#fff6;margin:0 4px;cursor:pointer}
+.dots b.on{background:var(--yellow)}
+.notice{background:#fff0f0;border-left:6px solid var(--red);color:var(--red);padding:.7rem 1rem;border-radius:8px;margin:1rem 0;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}
+.card{background:var(--card);border-radius:14px;padding:1.1rem;box-shadow:0 2px 10px #1456c922;border-top:4px solid var(--blue)}
+.card.y{border-top-color:var(--yellow)}
+.btn{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:.55rem 1.1rem;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.btn.y{background:var(--yellow);color:#000;font-weight:600}
+.chip{display:inline-block;background:#e3edff;color:var(--blue2);border:2px solid var(--blue);border-radius:20px;padding:.3rem .9rem;margin:.2rem;cursor:pointer;font:inherit}
+.chip.on{background:var(--blue);color:#fff}
+input,select,textarea{width:100%;padding:.6rem;border:2px solid #b8cdf5;border-radius:10px;font:inherit;background:var(--card);color:var(--text);margin:.25rem 0 .8rem}
+label{font-weight:500}
+.opt{display:block;width:100%;text-align:left;margin:.3rem 0;padding:.5rem .8rem;border:2px solid #b8cdf5;border-radius:10px;background:var(--card);color:var(--text);font:inherit;cursor:pointer}
+.opt.ok{background:#d9f7e0;border-color:#22a447;color:#0a3d1a}.opt.no{background:#ffe3e3;border-color:var(--red);color:#600}
+footer{background:var(--blue2);color:#fff;text-align:center;padding:1.5rem 1rem;margin-top:2rem}
+.contact{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-top:.8rem}
+.contact a{display:flex;align-items:center;gap:.5rem;color:#fff;text-decoration:none;background:#ffffff1f;padding:.5rem 1rem;border-radius:30px}
+.contact a:hover{background:var(--yellow);color:#000}
+.contact svg{width:24px;height:24px;fill:currentColor}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#home">📘 Learning Hub</a>
+  <button id="menu" aria-label="Menu">☰</button>
+  <nav id="nav">
+    <a href="#home" data-i="home">Home</a><a href="#courses" data-i="courses">Courses</a><a href="#subjects" data-i="subjects">Subjects</a>
+    <a href="#pyqs" data-i="pyqs">PYQs</a><a href="#mcqs" data-i="mcqs">MCQs</a><a href="#lectures" data-i="lectures">Lectures</a>
+    <a href="#doubts" data-i="doubts">Doubts</a><a href="#about" data-i="about">About</a><a href="#settings" data-i="settings">⚙ Settings</a><a href="#signin" data-i="signin">Sign in</a>
+  </nav>
+</header>
+<main>
+
+<section class="page" id="home">
+  <div class="slider" id="slider">
+    <div class="slide on"><span class="tag" style="color:var(--yellow)">Welcome</span><h1>Learning Hub</h1><p>Smart learning for <span class="hl">Class 9 to 12</span> students.</p><div><a class="btn y" href="#signin">Join now</a></div></div>
+    <div class="slide"><span class="tag" style="color:var(--yellow)">Courses</span><h1>Class 9, 10, 11 &amp; 12</h1><p>Science, Commerce &amp; Arts with <span class="hl">expert teachers</span>.</p><div><a class="btn y" href="#courses">View courses</a></div></div>
+    <div class="slide"><span class="tag" style="color:var(--yellow)">Practice</span><h1>PYQs, MCQs &amp; Lectures</h1><p>Practice daily and clear every doubt.</p><div><a class="btn y" href="#mcqs">Start practice</a></div></div>
+    <div class="dots" id="dots"></div>
+  </div>
+  <div class="notice">🔴 Important Notice: Admissions for the new batch are open. Register before the last date!</div>
+  <div class="grid">
+    <a class="card" href="#pyqs" style="text-decoration:none;color:inherit"><h2>📄 PYQs</h2>Previous year papers</a>
+    <a class="card y" href="#mcqs" style="text-decoration:none;color:inherit"><h2>✅ MCQs</h2>Quick quizzes</a>
+    <a class="card" href="#lectures" style="text-decoration:none;color:inherit"><h2>🎥 Lectures</h2>Video classes</a>
+    <a class="card y" href="#doubts" style="text-decoration:none;color:inherit"><h2>💬 Doubts</h2>Ask teachers</a>
+  </div>
+</section>
+
+<section class="page" id="courses">
+  <h1 data-i="courses">Courses</h1>
+  <div class="grid" id="courseGrid"></div>
+</section>
+
+<section class="page" id="subjects">
+  <h1>Choose Your Subjects</h1>
+  <p>Step 1: Select class</p><div id="clsChips"></div>
+  <p>Step 2: Pick subjects</p><div id="subChips"></div>
+  <div class="card y" style="margin-top:1rem"><b>Your selection:</b> <span id="picked">Nothing yet</span>
+    <p><a class="btn" href="#lectures">Lectures</a> <a class="btn" href="#pyqs">PYQs</a> <a class="btn" href="#mcqs">MCQs</a></p></div>
+</section>
+
+<section class="page" id="pyqs">
+  <h1>Previous Year Questions</h1>
+  <label>Class</label><select id="pyqCls"><option>9</option><option>10</option><option>11</option><option>12</option></select>
+  <div class="grid" id="pyqList"></div>
+</section>
+
+<section class="page" id="mcqs">
+  <h1>MCQ Practice</h1>
+  <div class="card" id="quiz"></div>
+</section>
+
+<section class="page" id="lectures">
+  <h1>Video Lectures</h1>
+  <div class="grid" id="lecList"></div>
+</section>
+
+<section class="page" id="doubts">
+  <h1>Doubt Section</h1>
+  <div class="notice">Please write the class, subject and chapter clearly so teachers can reply quickly.</div>
+  <div class="card"><label>Subject</label><input id="dSub" placeholder="e.g. Maths – Class 10">
+    <label>Your doubt</label><textarea id="dTxt" rows="3"></textarea><button class="btn" id="dBtn">Post doubt</button></div>
+  <div id="dList"></div>
+</section>
+
+<section class="page" id="about">
+  <h1 data-i="about">About Us</h1>
+  <div class="card"><p><span class="hl">Learning Hub</span> is an educational institution helping students of Class 9 to 12 learn with clarity and confidence through concept-based lectures, practice papers and one-to-one doubt solving.</p></div>
+  <div class="grid"><div class="card y"><h2>🎯 Mission</h2>Quality education for every student.</div><div class="card"><h2>👩‍🏫 Teachers</h2>Experienced and friendly mentors.</div><div class="card y"><h2>📈 Results</h2>Regular tests and progress tracking.</div></div>
+</section>
+
+<section class="page" id="settings">
+  <h1 data-i="settings">Settings</h1>
+  <div class="card"><h2>🌐 Language</h2>
+    <select id="lang"><option value="en">English</option><option value="hi">हिन्दी (Hindi)</option></select></div>
+  <div class="card y" style="margin-top:1rem"><h2>🖥 Screen settings</h2>
+    <label>Theme</label><select id="theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select>
+    <label>Text size</label><select id="fs"><option value="14px">Small</option><option value="16px">Medium</option><option value="19px">Large</option></select>
+    <label><input type="checkbox" id="hc" style="width:auto"> High contrast blue</label></div>
+</section>
+
+<section class="page" id="signin">
+  <h1 data-i="signin">Student Sign in</h1>
+  <div class="card"><div class="notice">🔴 Fill correct details. Parent's number is used for important updates.</div>
+  <form id="sf" onsubmit="return false">
+    <label>Full name</label><input id="sName" required>
+    <label>Class</label><select id="sCls"><option>9</option><option>10</option><option>11</option><option>12</option></select>
+    <label>Stream (Class 11–12)</label><select><option>Not applicable</option><option>Science</option><option>Commerce</option><option>Arts</option></select>
+    <label>School name</label><input>
+    <label>Date of birth</label><input type="date">
+    <label>Student phone / WhatsApp</label><input type="tel">
+    <label>Parent's phone</label><input type="tel">
+    <label>Email</label><input type="email">
+    <label>Password</label><input type="password">
+    <button class="btn y" id="sBtn">Sign in / Register</button>
+  </form><p id="sMsg"></p></div>
+</section>
+</main>
+
+<footer>
+  <div class="tag">Contact us</div>
+  <div class="contact">
+    <a href="https://wa.me/910000000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.7-3-1.3-4.9-4.3-5-4.5-.1-.2-1.200-1.600-1.200-3s.8-2.100 1-2.400c.3-.3.600-.4.800-.4h.6c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .600l-.4.600c-.2.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.400-.2.700-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.500z"/></svg>WhatsApp</a>
+    <a href="https://instagram.com/learninghub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.500A4.500 4.500 0 1 1 7.500 12 4.500 4.500 0 0 1 12 7.500zm0 2A2.500 2.500 0 1 0 14.500 12 2.500 2.500 0 0 0 12 9.500zM17.500 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>Instagram</a>
+  </div>
+  <p style="opacity:.7;font-size:.85rem">© Learning Hub</p>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const st={get(k,d){try{return localStorage.getItem(k)||d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const L={en:{home:"Home",courses:"Courses",subjects:"Subjects",pyqs:"PYQs",mcqs:"MCQs",lectures:"Lectures",doubts:"Doubts",about:"About",settings:"⚙ Settings",signin:"Sign in"},
+hi:{home:"होम",courses:"कोर्स",subjects:"विषय",pyqs:"पिछले वर्ष के प्रश्न",mcqs:"एमसीक्यू",lectures:"लेक्चर",doubts:"संदेह",about:"हमारे बारे में",settings:"⚙ सेटिंग्स",signin:"साइन इन"}};
+function setLang(l){$$('[data-i]').forEach(e=>e.textContent=L[l][e.dataset.i]);$('#lang').value=l;st.set('lang',l)}
+$('#lang').onchange=e=>setLang(e.target.value);
+function theme(t){if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=t;st.set('theme',t);$('#theme').value=t}
+$('#theme').onchange=e=>theme(e.target.value);
+function fs(v){document.documentElement.style.setProperty('--fs',v);st.set('fs',v);$('#fs').value=v}
+$('#fs').onchange=e=>fs(e.target.value);
+$('#hc').onchange=e=>{document.body.classList.toggle('hc',e.target.checked)};
+// routing
+function route(){let h=(location.hash||'#home').slice(1);if(!$('#'+h))h='home';$$('.page').forEach(p=>p.classList.toggle('on',p.id===h));$$('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));$('#nav').classList.remove('open');scrollTo(0,0)}
+addEventListener('hashchange',route);$('#menu').onclick=()=>$('#nav').classList.toggle('open');
+// slider
+let si=0;const sl=$$('.slide');sl.forEach((_,i)=>{const b=document.createElement('b');b.onclick=()=>go(i);$('#dots').append(b)});
+function go(i){si=i;sl.forEach((s,k)=>s.classList.toggle('on',k===i));$$('#dots b').forEach((b,k)=>b.classList.toggle('on',k===i))}go(0);setInterval(()=>go((si+1)%sl.length),4500);
+// data
+const SUB={9:["Maths","Science","Social Science","English","Hindi"],10:["Maths","Science","Social Science","English","Hindi"],11:["Physics","Chemistry","Maths","Biology","Accountancy","Economics","History","English"],12:["Physics","Chemistry","Maths","Biology","Accountancy","Economics","Political Science","English"]};
+$('#courseGrid').innerHTML=[9,10,11,12].map((c,i)=>`<div class="card ${i%2?'y':''}"><h2>Class ${c}</h2><p>${SUB[c].slice(0,4).join(', ')}…</p><button class="btn" onclick="pick(${c});location.hash='#subjects'">Choose subjects</button></div>`).join('');
+let cls=9,sel=new Set();
+function pick(c){cls=c;sel.clear();draw()}
+function draw(){$('#clsChips').innerHTML=[9,10,11,12].map(c=>`<span class="chip ${c===cls?'on':''}" onclick="pick(${c})">Class ${c}</span>`).join('');
+$('#subChips').innerHTML=SUB[cls].map(s=>`<span class="chip ${sel.has(s)?'on':''}" onclick="tog('${s}')">${s}</span>`).join('');
+$('#picked').textContent=sel.size?`Class ${cls}: ${[...sel].join(', ')}`:'Nothing yet'}
+function tog(s){sel.has(s)?sel.delete(s):sel.add(s);draw()}draw();
+function pyq(){const c=$('#pyqCls').value;$('#pyqList').innerHTML=SUB[c].slice(0,6).map(s=>`<div class="card"><b>${s}</b><br>Class ${c} · 2023, 2024, 2025<br><br><button class="btn" onclick="alert('Add your PDF link for ${s} here.')">Open paper</button></div>`).join('')}
+$('#pyqCls').onchange=pyq;pyq();
+$('#lecList').innerHTML=["Maths – Algebra Basics","Science – Motion","Physics – Laws of Motion","Chemistry – Mole Concept","English – Grammar","Biology – Cell"].map((t,i)=>`<div class="card ${i%2?'y':''}"><div style="background:var(--blue);color:#fff;border-radius:10px;padding:1.5rem;text-align:center;font-size:2rem">▶</div><p><b>${t}</b></p><span class="hl">Lecture ${i+1}</span></div>`).join('');
+// quiz
+const Q=[["Value of 2² + 3²?",["13","12","10","9"],0],["Unit of force?",["Joule","Newton","Watt","Pascal"],1],["Chemical symbol of Sodium?",["S","So","Na","N"],2],["Powerhouse of the cell?",["Nucleus","Ribosome","Mitochondria","Vacuole"],2],["Synonym of 'Happy'?",["Sad","Joyful","Angry","Tired"],1]];
+let qi=0,sc=0;
+function qz(){const q=$('#quiz');if(qi>=Q.length){q.innerHTML=`<h2>Score: ${sc}/${Q.length}</h2><button class="btn y" onclick="qi=0;sc=0;qz()">Try again</button>`;return}
+const[t,o,a]=Q[qi];q.innerHTML=`<span class="hl">Question ${qi+1}/${Q.length}</span><h3>${t}</h3>`+o.map((x,i)=>`<button class="opt" data-i="${i}">${x}</button>`).join('');
+$$('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;$$('.opt').forEach((x,k)=>{x.disabled=true;if(k===a)x.classList.add('ok')});if(i!==a)b.classList.add('no');else sc++;setTimeout(()=>{qi++;qz()},1000)})}qz();
+// doubts
+let D=[];try{D=JSON.parse(st.set&&st.get('doubts','[]'))}catch(e){}
+function dr(){$('#dList').innerHTML=D.map(d=>`<div class="card y" style="margin-top:.8rem"><span class="hl">${d.s}</span><p>${d.t}</p><small>Status: awaiting teacher reply</small></div>`).join('')}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('#dBtn').onclick=()=>{const t=esc($('#dTxt').value.trim());if(!t)return;D.unshift({s:esc($('#dSub').value)||'General',t});st.set('doubts',JSON.stringify(D));$('#dTxt').value='';dr()};dr();
+// signin
+$('#sBtn').onclick=()=>{const f=$('#sf');if(!f.checkValidity()){f.reportValidity();return}$('#sMsg').innerHTML=`<span class="hl">Welcome, ${esc($('#sName').value)}!</span> Class ${$('#sCls').value} registration saved on this device.`};
+// init
+setLang(st.get('lang','en'));theme(st.get('theme','auto'));fs(st.get('fs','16px'));route();
+</script>
+</body>
+</html>
